@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Container, Row, Col, Button } from "reactstrap"
 import ScoreBoard from "./components/ScoreBoard";
 import Win from "./resources/victory.gif"
+import sound from "./resources/playSound.mp3"
 
 
 const App = () => {
 
     const players = ['X', 'O'];
     const positions = [...Array(9).keys()];
+    const playSound = new Audio(sound);
     
     let [i, setI] = useState(0)
     const [moves, setMoves] = useState(Array(9).fill(null))
@@ -17,16 +19,19 @@ const App = () => {
     const [score, setScore] = useState({ X: 0, tie: 0, O: 0 });
     
     const putMark = (i, index) => {
-        moves[index] = players[i];
-        setMoves(moves);
-        switch (checkWin(index, players[i])){
-            case "won":  setWinner();
-                         break;
+        if(moves[index] === null && !gameWon && !gameTie) {
+            playSound.play();
+            moves[index] = players[i];
+            setMoves(moves);
+            switch (checkWin(index, players[i])){
+                case "won":  setWinner();
+                            break;
 
-            case "tie":  setTie();
-                         break;
+                case "tie":  setTie();
+                            break;
 
-            default: setI((i+1) % 2)
+                default: setI((i+1) % 2)
+            }
         }
     }
 
@@ -73,16 +78,16 @@ const App = () => {
     }
 
     
-    return <Container className="h-100 row m-auto py-3 flex-column">
+    return <Container className="h-100 row m-auto py-3 flex-lg-column justify-content-center overflow-hidden">
 
                 <header className="px-0 mb-3 shadow fit-content">
                     <h1 className="display-4 fw-bold text-light text-center bg-dark py-3 m-0 rounded-3">Tic-Tac-Toe</h1>
                 </header>
 
                 <Col>
-                    <Row className="h-100 justify-content-between">
-                        <Col id="scoreContainer" className="col-5 p-4 d-flex shadow rounded-3">
-                            <Row className="w-100 m-0 text-center">
+                    <Row className="h-100 justify-content-between flex-column-reverse flex-lg-row">
+                        <Col id="scoreContainer" className="p-4 d-flex shadow rounded-3" xs="12" lg="5">
+                            <Row className="w-100 m-0 text-center flex-row flex-lg-column justify-content-between">
                                 <div>
                                     <div className="text-light bg-dark fw-bold p-3 rounded">
                                         <h1 className="fs-2">{ "Round " + roundCount }</h1>
@@ -98,21 +103,21 @@ const App = () => {
                                 </div>
 
                                 {
-                                    gameWon ? <div><img className="col-5 drop-shadow" src={Win} alt="victory" /></div> : ""
+                                    gameWon ? <Col className="mx-auto" xs="6"><img className="w-100 drop-shadow" src={Win} alt="victory" /></Col> : ""
                                 }
 
-                                <div className="mt-auto fit-content">
+                                <div>
                                     <ScoreBoard score={ score } />
                                 </div>
                             </Row>
                         </Col>
                         
-                        <Col className="col d-flex ms-3 flex-column py-3">
-                            <div id="box" className="m-auto bg-light text-light display-2 border border-light border-1">
+                        <Col className="d-flex ms-3 flex-row flex-lg-column py-3" xs="12" lg="6">
+                            <div id="box" className="m-auto text-light display-2">
                                 {
                                     moves.map((el, index) => {
-                                    return <div className="d-flex justify-content-center" key={index} onClick={() => {putMark(i, index)}}>
-                                                <span className="m-auto col-12 text-center">{ el }</span>
+                                    return <div className="d-flex justify-content-center shadow" key={index} onClick={() => {putMark(i, index)}}>
+                                                <span className="m-auto text-center">{ el }</span>
                                             </div>
                                     })
                                 }
