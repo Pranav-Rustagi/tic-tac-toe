@@ -1,6 +1,7 @@
 :root {
     --transparent-1: rgba(255, 255, 255, 0.4);
     --transparent-2: rgba(255, 255, 255, 0.25);
+    --transparent-3: rgba(0, 0, 0, 0.75);
     --unit: 1vh;
 }
 
@@ -24,7 +25,7 @@ header + div.col > div.h-100 {
 }
 
 .drop-shadow {
-    filter: drop-shadow(0.35rem 0.35rem 0.25rem rgba(0, 0, 0, 0.75));
+    filter: drop-shadow(0.35rem 0.35rem 0.25rem --transparent-3);
 }
 
 #box {
@@ -57,6 +58,10 @@ header + div.col > div.h-100 {
 
 
 @media (max-width: 991px) {
+    header + div.col {
+        height: calc(100vh - 10rem);
+    }
+    
     #box {
         grid-gap: 0.75rem;
         grid-template-rows: repeat(3, 5rem);
@@ -65,5 +70,22 @@ header + div.col > div.h-100 {
 
     #box > div {
         font-size: 2.5rem;
+    }
+}
+
+
+@media (max-width: 525px) {
+    #scoreContainer {
+        width: 100%;
+    }
+
+    #box {
+        grid-gap: 0.5rem;
+        grid-template-rows: repeat(3, 4rem);
+        grid-template-columns: repeat(3, 4rem);
+    }
+
+    #box > div {
+        font-size: 2rem;
     }
 }
