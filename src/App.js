@@ -78,20 +78,20 @@ const App = () => {
     }
 
     
-    return <Container className="h-100 row m-auto py-3 flex-lg-column justify-content-center">
+    return <Container className="h-100 row m-auto py-3 flex-lg-column text-light">
 
                 <header className="px-0 mb-3 shadow fit-content">
-                    <h1 className="display-4 fw-bold text-light text-center bg-dark py-3 m-0 rounded-3">Tic-Tac-Toe</h1>
+                    <h1 className="display-4 fw-bold text-center bg-dark py-3 m-0 rounded-3">Tic-Tac-Toe</h1>
                 </header>
 
                 <Col>
                     <Row className="h-100 justify-content-between flex-column-reverse flex-md-row">
-                        <Col id="scoreContainer" className="p-3 p-md-4 d-flex shadow rounded-3 mx-md-auto ms-md-0" xs="11" md="5">
-                            <Row className="w-100 m-0 text-center flex-row flex-lg-column justify-content-between">
+                        <Col id="scoreContainer" className="p-3 p-md-4 d-flex shadow rounded-3 mx-auto ms-md-0" xs="11" md="5">
+                            <Row className="w-100 m-0 text-center">
                                 
-                                <div className="text-light bg-dark fw-bold py-2 p-md-3 rounded fit-content col-12">
-                                    <h1 className="fs-2">{ "Round " + roundCount }</h1>
-                                    <p className="lead m-0">
+                                <div className="bg-dark py-2 p-md-3 rounded fit-content">
+                                    <h1 className="h1">{ "Round " + roundCount }</h1>
+                                    <p className="m-0 fw-light">
                                         { 
                                             gameWon ?
                                             players[i] + " Won!" :
@@ -105,14 +105,14 @@ const App = () => {
                                     gameWon ? <Col className="m-auto d-none d-md-block" xs="4" md="10" lg="6"><img className="w-100 drop-shadow" src={Win} alt="victory" /></Col> : ""
                                 }
 
-                                <div className="fit-content mt-2 mt-md-auto p-0 col-12">
+                                <div className="fit-content mt-2 mt-md-auto p-0">
                                     <ScoreBoard score={ score } />
                                 </div>
                             </Row>
                         </Col>
                         
-                        <Col className="d-flex ms-0 ms-lg-3 flex-column py-3" xs="12" md="6">
-                            <div id="box" className="m-auto text-light display-2">
+                        <Col className="d-flex ms-lg-3 flex-column py-3 justify-content-evenly" md="6">
+                            <div id="box" className="mx-auto display-2">
                                 {
                                     moves.map((el, index) => {
                                     return <div className="d-flex justify-content-center shadow" key={index} onClick={() => {putMark(i, index)}}>

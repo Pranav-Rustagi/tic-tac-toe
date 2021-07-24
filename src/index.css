@@ -3,11 +3,16 @@
     --transparent-2: rgba(255, 255, 255, 0.25);
     --transparent-3: rgba(0, 0, 0, 0.75);
     --unit: 1vh;
+    --grid-unit: 7.5rem;
+    --grid-gap-size: 1rem;
+    --grid-font-size: 4rem;
 }
 
 #root {
-    height: 100vh;
     background: var(--bs-orange);
+    min-width: 320px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
     user-select: none;
 }
 
@@ -25,67 +30,65 @@ header + div.col > div.h-100 {
 }
 
 .drop-shadow {
-    filter: drop-shadow(0.35rem 0.35rem 0.25rem --transparent-3);
+    filter: drop-shadow(0.35rem 0.35rem 0.25rem var(--transparent-3));
 }
 
 #box {
     display: grid;
-    grid-gap: 1rem;
-    grid-template-rows: repeat(3, 7.5rem);
-    grid-template-columns: repeat(3, 7.5rem);
+    grid-gap: var(--grid-gap-size);
+    grid-template-rows: repeat(3, var(--grid-unit));
+    grid-template-columns: repeat(3, var(--grid-unit));
 }
 
 #box > div {
     background-color: var(--transparent-2);
+    font-size: var(--grid-font-size);
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 4rem;
     cursor: pointer;
 }
 
 
 @media (min-width: 1540px) {
-    #box {
-        grid-gap: 1.5rem;
-        grid-template-rows: repeat(3, 10rem);
-        grid-template-columns: repeat(3, 10rem);
+    :root {
+        --grid-gap-size: 1.5rem;
+        --grid-unit: 10rem;
+        --grid-font-size: 4.5rem;
     }
 
-    #box > div {
-        font-size: 4.5rem;
+    #scoreContainer .h1+p {
+        font-size: 1.5rem!important;
+    }
+}
+
+@media (min-width: 767px) {
+    #scoreContainer .h1+p {
+        font-size: 1.25rem!important;
     }
 }
 
 
 
 @media (max-width: 991px) {
-    header + div.col {
-        height: calc(100vh - 10rem);
-    }
-    
-    #box {
-        grid-gap: 0.75rem;
-        grid-template-rows: repeat(3, 5rem);
-        grid-template-columns: repeat(3, 5rem);
+    :root {
+        --grid-gap-size: 0.75rem;
+        --grid-unit: 5rem;
+        --grid-font-size: 2.5rem;
     }
 
-    #box > div {
-        font-size: 2.5rem;
+    header + div.col {
+        height: calc(100vh - 10rem);
     }
 }
 
 
-@media (max-width: 525px) {
-    #scoreContainer {
-        width: 100%;
+@media (max-width: 767px) {
+    :root {
+        --grid-gap-size: 0.5rem;
+        --grid-font-size: 2rem;
+        --grid-unit: calc(3.5rem + 2vw);
     }
 
-    #box {
-        grid-gap: 0.5rem;
-        grid-template-rows: repeat(3, 4rem);
-        grid-template-columns: repeat(3, 4rem);
-    }
-
-    #box > div {
-        font-size: 2rem;
+    #scoreContainer .card-body, .btn-lg {
+        font-size: 1rem!important;
     }
 }
